@@ -1,5 +1,7 @@
 # Semantic Scene Change Detection Network
-This is an official implementation of "Correlated Siamese Change Detection Network (CSCDNet)" and "Silhouette-based Semantic Change Detection Network (SSCDNet)" in　"[Weakly Supervised Silhouette-based Semantic Scene Change Detection](https://arxiv.org/abs/1811.11985)" (ICRA2020). (SSCDNet and PSCD datast are preparing...)
+This is a fork of an official implementation of "Correlated Siamese Change Detection Network (CSCDNet)" and "Silhouette-based Semantic Change Detection Network (SSCDNet)" in　"[Weakly Supervised Silhouette-based Semantic Scene Change Detection](https://arxiv.org/abs/1811.11985)" (ICRA2020). (SSCDNet and PSCD datast are preparing...)
+
+Changes have been incorporated for compatibility with Pytorch 1.4 and for training with multiple GPU's. The author also made changes that were merged into the Flownet2 repo for compatibility with Pytorch 1.4, so the install script for the correlation package has an updated commit hash.
 
 <p align="center">
     <img src='https://drive.google.com/uc?export=view&id=1g0oPp5Kw4chnQ_FSyxc2TNdnNdlz9ZD0' width=95%/></a>
