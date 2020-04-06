@@ -69,18 +69,33 @@ class Test:
             if self.args.use_corr:
                 print('Correlated Siamese Change Detection Network (CSCDNet)')
                 self.model = cscdnet.Model(inc=6, outc=2, corr=True, pretrained=True)
-                fn_model = os.path.join(os.path.join(self.args.checkpointdir, 'set{}'.format(i_set), 'cscdnet-00030000.pth'))
+                fn_model = os.path.join(os.path.join(self.args.checkpointdir, 'set{}'.format(i_set), 'cscdnet-00050000.pth'))
             else:
                 print('Siamese Change Detection Network (Siamese CDResNet)')
                 self.model = cscdnet.Model(inc=6, outc=2, corr=False, pretrained=True)
-                fn_model = os.path.join(os.path.join(self.args.checkpointdir, 'set{}'.format(i_set), 'cdnet-00030000.pth'))
+                fn_model = os.path.join(os.path.join(self.args.checkpointdir, 'set{}'.format(i_set), 'cdnet-00050000.pth'))
 
             if os.path.isfile(fn_model) is False:
                 print("Error: Cannot read file ... " + fn_model)
                 exit(-1)
             else:
                 print("Reading model ... " + fn_model)
-            self.model.load_state_dict(torch.load(fn_model))
+
+            # Check if trained model is dataparallel module and remove "module" from key names if so.
+            state_dict = torch.load(fn_model)
+            first_pair = next(iter(state_dict.items()))
+            if first_pair[0][:7] == "module.":
+                # create new OrderedDict with generic keys
+                from collections import OrderedDict
+                new_state_dict = OrderedDict()
+                for k, v in state_dict.items():
+                    name = k[7:] # remove "module."
+                    new_state_dict[name] = v
+                # load params
+                self.model.load_state_dict(new_state_dict)
+            else:
+                self.model.load_state_dict(state_dict)
+
             self.model = self.model.cuda()
 
             if self.args.dataset == 'PCD':
@@ -109,5 +124,3 @@ if __name__ == '__main__':
 
     test = Test(parser.parse_args())
     test.run()
-
-
