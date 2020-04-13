@@ -8,7 +8,7 @@ Changes have been incorporated for compatibility with Pytorch 1.4 and for traini
 </p>
 
 ## Environments
-This code was developed and tested with Python 3.6.8 and PyTorch 1.0 and CUDA 9.2.
+This code was developed and tested with Python 3.6.9 and PyTorch 1.4 and CUDA 10.2.
 * GCC
 ```
 # Build and install GCC (>= 7.4.0) if not installed
